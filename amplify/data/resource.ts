@@ -17,17 +17,61 @@ const schema = a.schema({
     .authorization([
       a.allow.owner().to(['create']),
       a.allow.public().to(['create']),
+      a.allow.specificGroup('Admin'),
     ]),
   Order: a
     .model({
       email: a.email(),
       phone: a.phone(),
       cashappId: a.string(),
+      name: a.string(),
+      company: a.string(),
+      line1: a.string(),
+      line2: a.string(),
+      city: a.string(),
+      state: a.string(),
+      zip: a.string(),
+      country: a.string(),
+      total: a.float(),
+      paid: a.boolean(),
+      orderHash: a.string(),
+      shipped: a.boolean(),
+      shippingType: a.string(),
+      shippingCost: a.float(),
+      shipporateObjectId: a.string(),
+      cartTotalWeight: a.integer(),
+      labelURL: a.string(),
+      completed: a.string(),
+      tracking: a.string(),
+      trackingURL: a.string(),
+      paymentType: a.string(),
     })
     .authorization([
       a.allow.owner().to(['create','read']),
-      a.allow.public().to(['create','read']),
+      a.allow.specificGroup('Admin'),
     ]),
+  Product: a
+    .model({
+      title: a.string(),
+      price: a.float(),
+      weight: a.float(),
+      description: a.string(),
+      reviews: a.hasMany('Review'),
+    })
+    .authorization([
+      a.allow.public().to(['read']),
+      a.allow.specificGroup('Admin'),
+    ]),
+  Review: a
+    .model({
+      content: a.string(),
+      rating: a.integer(),
+    })
+    .authorization([
+      a.allow.owner().to(['create','update','read']),
+      a.allow.public().to(['read']),
+      a.allow.specificGroup('Admin'),
+    ])
 });
 
 export type Schema = ClientSchema<typeof schema>;

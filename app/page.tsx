@@ -32,7 +32,8 @@ async function App() {
       </form>
 
       <ul>
-        {orders && orders.map((order) => <li key={order.id}>{order.email}</li>)}
+        {//orders && orders.map((order) => <li key={order.id}>{order.email}</li>)
+        }
       </ul>
     </>
   );
